@@ -1,5 +1,7 @@
-﻿using Domain.Services;
-using Infrasctructure;
+﻿using Domain.VolcanoContext.Handlers;
+using Domain.VolcanoContext.Repositories;
+using Infrastructure.VolcanoContext.DataContexts;
+using Infrastructure.VolcanoContext.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +24,14 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<VolcanoDbContext>(options =>
                 options.UseInMemoryDatabase("InMemoryDatabase"));
 
+            services.AddTransient<IWeatherRepository, WeatherRepository>();
+            services.AddTransient<WeatherHandler, WeatherHandler>();
 
-            services.AddTransient<YearService>();
+
+            //services.AddTransient<YearService>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
