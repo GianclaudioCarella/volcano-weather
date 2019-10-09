@@ -9,8 +9,10 @@ namespace Domain.VolcanoContext.CalculeFunctions
         int CalculePosition(int num, int n);
         string GetWeather(int volcanoPosition, int betasoidePosition, int ferengiPosition);
     }
-    public class WeatherCalculator : IWeatherCalculator
+    public class WeatherCalculator : IWeatherCalculator, IDisposable
     {
+        // Flag: Has Dispose already been called?
+        bool disposed = false;
 
         public int CalculePosition(int num, int n)
         {
@@ -170,6 +172,29 @@ namespace Domain.VolcanoContext.CalculeFunctions
             }
 
             return "Dia nublado";
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+            }
+
+            // Free any unmanaged objects here.
+            //
+            disposed = true;
         }
     }
 }

@@ -17,6 +17,21 @@ namespace Tests.Mocks
             //throw new NotImplementedException();
         }
 
+        public int GetLluviaPeriods()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetOptimoPeriods()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetSequiaPeriods()
+        {
+            throw new NotImplementedException();
+        }
+
         public Weather GetWeather()
         {
             return new Weather()
@@ -59,6 +74,11 @@ namespace Tests.Mocks
             });
 
             return weatherList;
+        }
+
+        public List<Weather> GetWeathers()
+        {
+            throw new NotImplementedException();
         }
 
         public bool WeatherExists(DateTime date)
