@@ -54,6 +54,14 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult GenerateWeatherForNext10Years()
         {
+
+            var weathers = _repository.GetWeathers();
+
+            if (weathers.Count() > 0)
+            {
+                return Ok("Los datos para este ano ya fueron generados");
+            }
+
             try
             {
                 _handler.GenerateWeatherForNext10Years();
