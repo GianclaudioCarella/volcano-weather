@@ -16,6 +16,11 @@ namespace Infrastructure.VolcanoContext.Repositories
             _context = context;
         }
 
+        public List<Weather> GetWeathers()
+        {
+            return _context.Weathers.ToList();
+        }
+
         public Weather GetWeather(DateTime date)
         {
             return _context.Weathers.Where(w => w.Date.Date.Equals(date.Date)).FirstOrDefault();

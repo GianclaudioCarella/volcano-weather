@@ -19,10 +19,13 @@ namespace Domain.VolcanoContext.Commands
             PlanetPosition = planetPosition;
         }
 
+        
+
         public override bool IsValid()
         {
             ValidationResult validationResult = new NewWeatherCommandValidation().Validate(this);
             return validationResult.IsValid;
         }
+
     }
 }

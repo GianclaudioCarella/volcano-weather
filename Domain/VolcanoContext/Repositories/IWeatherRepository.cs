@@ -7,6 +7,7 @@ namespace Domain.VolcanoContext.Repositories
 {
     public interface IWeatherRepository
     {
+        List<Weather> GetWeathers();
         Weather GetWeather(DateTime date);
         void CreateWeather(Weather weather);
         void DeleteWeather(Guid idWeather);

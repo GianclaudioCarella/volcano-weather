@@ -8,6 +8,7 @@ namespace Domain.VolcanoContext.Enums
     {
         Sequia = 1,
         Lluvia = 2,
-        Optimo = 3
+        Optimo = 3,
+        Nublado = 4
     }
 }

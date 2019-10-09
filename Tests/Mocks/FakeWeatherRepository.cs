@@ -28,6 +28,11 @@ namespace Tests.Mocks
             };
         }
 
+        public Weather GetWeather(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Weather> GetWeathers(int year)
         {
             List<Weather> weatherList = new List<Weather>();
