@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-api-connection',
@@ -6,9 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./api-connection.component.css']
 })
 export class ApiConnectionComponent implements OnInit {
-  constructor() { }
+
+  _result: any;
+  _baseUrl: any;
+  _http: HttpClient;
+
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    this._baseUrl = baseUrl;
+    this._http = http;
+  }
 
   ngOnInit() {
+
+  }
+
+  generaDatos() {
+    console.log('llamado api');
+    this._http.post(this._baseUrl + 'api/weather', null).subscribe(
+      (response) => {
+        return response;
+      }
+    )
   }
 
 

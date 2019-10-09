@@ -22,8 +22,8 @@ namespace Domain.VolcanoContext.Validations
         protected void ValidatePlanetPosition()
         {
             RuleFor(p => p.PlanetPosition)
-                .LessThan(360)
-                .GreaterThan(0)
+                .LessThan(361)
+                .GreaterThan(-1)
                 .WithMessage("The planet position value must be between 0 and 360");
         }
 

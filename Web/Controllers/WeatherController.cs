@@ -12,7 +12,7 @@ using Shared.Commands;
 
 namespace Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/weather")]
     [ApiController]
     public class WeatherController : Controller
     {
@@ -65,29 +65,23 @@ namespace Web.Controllers
             }
         }
 
-        //[HttpGet]
-        //public IEnumerable<VolcanoForecast> WeatherForecastByDate(DateTime date)
-        //{
-        //    DateTime startDate = new DateTime(2019, 01, 01);
-        //    IList<string> weatherDays = new List<string>();
-        //    TimeSpan span = date.Subtract(startDate);
-        //    var difference = span.Days;
+        [HttpGet("sequia")]
+        public int GetSequiaPeriods()
+        {
+            return _repository.GetSequiaPeriods();
+        }
 
-        //    while (startDate != date)
-        //    {
-        //        weatherDays.Add(_handler.GetWeather(date));
-        //        date = date.AddDays(-1);
-        //    }
+        [HttpGet("lluvia")]
+        public int GetLluviaPeriods()
+        {
+            return _repository.GetLluviaPeriods();
+        }
 
-        //    var rng = new Random();
-        //    return Enumerable.Range(0, difference).Select(index => new VolcanoForecast
-        //    {
-        //        DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-        //        TemperatureC = rng.Next(-20, 55),
-        //        Summary = weatherDays[index]
-        //    });
-        //}
-
+        [HttpGet("optimo")]
+        public int GetOptimoPeriods()
+        {
+            return _repository.GetOptimoPeriods();
+        }
 
 
         public class VolcanoForecast
@@ -103,14 +97,6 @@ namespace Web.Controllers
                 }
             }
         }
-
-        //[HttpPost]
-        //public ICommandResult Post([FromBody]NewWeatherCommand command)
-        //{
-        //    var result = _handler.Handle(command);
-        //    return result;
-
-        //}
 
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Domain.VolcanoContext.Entities;
 using Infrastructure.VolcanoContext.DataContexts;
 using Domain.VolcanoContext.Repositories;
+using Domain.VolcanoContext.Enums;
 
 namespace Infrastructure.VolcanoContext.Repositories
 {
@@ -56,6 +57,21 @@ namespace Infrastructure.VolcanoContext.Repositories
                 return false;
             return true;
 
+        }
+
+        public int GetSequiaPeriods()
+        {
+            return _context.Weathers.Where(w => w.Type.Equals(WeatherType.Sequia)).Count();
+        }
+
+        public int GetLluviaPeriods()
+        {
+            return _context.Weathers.Where(w => w.Type.Equals(WeatherType.Lluvia)).Count();
+        }
+
+        public int GetOptimoPeriods()
+        {
+            return _context.Weathers.Where(w => w.Type.Equals(WeatherType.Optimo)).Count();
         }
     }
 }

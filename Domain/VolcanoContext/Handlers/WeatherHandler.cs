@@ -28,31 +28,16 @@ namespace Domain.VolcanoContext.Handlers
 
         public ICommandResult Handle(NewWeatherCommand command)
         {
-            // Verificar si fecha weather ya existe
-            if (_repository.WeatherExists(command.Date))
-            {
-                return new CommandResult(false, $"The weather for {command.Date} is {command.Type}.");
-            }
-
-            if (command.IsValid())
+            if (!command.IsValid())
                 return new CommandResult(false, "Weather Invalid");
-
-            // Hacer la cuenta para saber cual es el dia
 
             //Generar las entidades
             var weather = new Weather(command.Type, command.Description, command.Date, command.PlanetPosition);
 
-            //Guardar
+            //Guardar en la base
             _repository.CreateWeather(weather);
 
             return new CommandResult(true, "New Weather Day created");
-        }
-
-        public ICommandResult Handle(GenerateWeatherYearCommand command)
-        {
-            //generar todos os Weathers do ano
-            //guardar en la tabla
-            return new CommandResult(false, "Falta implementar");
         }
 
         /// <summary>
@@ -60,7 +45,6 @@ namespace Domain.VolcanoContext.Handlers
         /// </summary>
         public void GenerateWeatherForNext10Years()
         {
-            //calcular weather del dia
             var firstDay = new DateTime(2019, 01, 01);
             var countDay = new DateTime(2019, 01, 01);
             TimeSpan span = DateTime.Now.AddYears(10).Subtract(firstDay);
@@ -71,7 +55,6 @@ namespace Domain.VolcanoContext.Handlers
             var maxVolcano = 360 / 5;
             var maxBetasoide = 360 / 3;
             var maxFerengi = 360;
-            var countSentidoAntiHorario = 360;
 
             while (difference != 0)
             {
@@ -80,6 +63,7 @@ namespace Domain.VolcanoContext.Handlers
                 var ferengiPosicion = _weatherCalculator.CalculePosition(countFerengi, FERENGI_VELOCITY);
 
                 string weaterVolcano = _weatherCalculator.GetWeather(volcanoPosition, betasoidePosition, ferengiPosicion);
+
                 WeatherType type = WeatherType.Nublado;
 
                 if (weaterVolcano == "Lluvia")
@@ -91,7 +75,8 @@ namespace Domain.VolcanoContext.Handlers
                 if (weaterVolcano == "Optimas Condiciones")
                     type = WeatherType.Optimo;
 
-                _repository.CreateWeather(new Weather(type,weaterVolcano,countDay,volcanoPosition));
+                //crea un nuevo commando para crear un weather
+                Handle(new NewWeatherCommand(type, weaterVolcano, countDay, volcanoPosition));
 
                 if (countVolcano == maxVolcano)
                     countVolcano = 0;
@@ -104,7 +89,6 @@ namespace Domain.VolcanoContext.Handlers
                 countVolcano++;
                 countBetasoide++;
                 countFerengi++;
-                countSentidoAntiHorario--;
                 countDay = countDay.AddDays(1);
             }
         }
@@ -123,6 +107,5 @@ namespace Domain.VolcanoContext.Handlers
             return _weatherCalculator.GetWeather(volcanoPosition, betasoidePosition, ferengiPosicion);
         }
 
-        
     }
 }

@@ -12,5 +12,8 @@ namespace Domain.VolcanoContext.Repositories
         void CreateWeather(Weather weather);
         void DeleteWeather(Guid idWeather);
         bool WeatherExists(DateTime date);
+        int GetSequiaPeriods();
+        int GetLluviaPeriods();
+        int GetOptimoPeriods();
     }
 }
